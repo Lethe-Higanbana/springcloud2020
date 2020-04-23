@@ -3,6 +3,7 @@ package com.summersky.springcloud.controller;
 import com.summersky.entity.CommentResult;
 import com.summersky.entity.Payment;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -38,5 +39,20 @@ public class OrderController {
     public CommentResult<Payment> getPaymentById(@PathVariable("id") Long id){
         log.info("调用8001服务查询接口");
         return restTemplate.getForObject(PAYMENT_URL+"/payment/get/"+id,CommentResult.class);
+    }
+
+    /**
+     * http://localhost/consumer/payment/getForEntity/31
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/consumer/payment/getForEntity/{id}")
+    public CommentResult<Payment> getPayment2(@PathVariable("id") Long id) {
+        ResponseEntity<CommentResult> entity = restTemplate.getForEntity(PAYMENT_URL + "/payment/get/" + id, CommentResult.class);
+        if (entity.getStatusCode().is2xxSuccessful()) {
+            return entity.getBody();
+        }
+        return new CommentResult<>(444, "操作失败");
     }
 }

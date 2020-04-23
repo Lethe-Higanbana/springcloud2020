@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
  * @Date:2020-4-18
  * @Time:21:38
  * @Description:服务之间的相互调用
+ * @LoadBalanced：开启负载均衡功能
  */
 @Configuration
 public class ApplicationContextConfig {
