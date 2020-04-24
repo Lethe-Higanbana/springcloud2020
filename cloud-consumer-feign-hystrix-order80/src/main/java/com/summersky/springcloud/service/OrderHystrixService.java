@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @component:（把普通pojo实例化到spring容器中，相当于配置文件中的<bean id="" class=""/>）
  */
 @Component
-@FeignClient(value = "CLOUD-PROVIDER-HYSTRIX-PAYMENT")
+@FeignClient(value = "CLOUD-PROVIDER-HYSTRIX-PAYMENT",fallback = OrderHystrixFallBackService.class)
 public interface OrderHystrixService {
     /**
      * 正常访问
