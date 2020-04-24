@@ -1,5 +1,6 @@
 package com.summersky.springcloud.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.summersky.springcloud.service.OrderHystrixService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +16,11 @@ import javax.annotation.Resource;
  * @Date:2020-4-23
  * @Time:22:59
  * @Description:
+ * @DefaultProperties：全局错误回调方法，如果没有指定专属回调，那么出错了就会调用全局错误方法
  */
 @RestController
 @Slf4j
+@DefaultProperties(defaultFallback = "payment_Global_FallbackMethod")
 public class OrderHystrixController {
     @Resource
     private OrderHystrixService orderHystrixService;
@@ -38,6 +41,7 @@ public class OrderHystrixController {
      * 超时访问
      * http://localhost/consumer/payment/hystrix/timeout/32
      *
+     * 未指定回调方法，会调用全局回调方法
      * @param id
      * @return
      */
