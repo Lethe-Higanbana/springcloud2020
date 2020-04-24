@@ -53,7 +53,7 @@ public class PaymentService {
     }
 
     /**
-     * 兜底方案
+     * 兜底方案，失败回调方法
      *
      * @param id
      * @return
