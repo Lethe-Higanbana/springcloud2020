@@ -1,0 +1,42 @@
+server:
+  port: 3344
+
+
+spring:
+  application:
+    name: cloud-config-center
+  cloud:
+    config:
+      server:
+        git:
+          # 这里注意了，uri有两种，一种是HTTP方式，一种是SSH方式
+          # 如果使用的是 Git SSH configuration，必须要配置 ignore-local-ssh-settings: true 和 private-key ！！！
+          #private-key 要注意 是在 | 后加上你的ssh私钥，不然也会报错（私钥在C:\Users\你的用户名.ssh文件下，id_rsa）
+          # https://blog.csdn.net/sinat_38843093/java/article/details/79917102
+          uri: https://github.com/Lethe-Higanbana/springcloud-config.git # Git上面的仓库地址
+          search-paths:
+            - springcloud-config # 搜索目录
+          # username:
+          # password:
+          # ignore-local-ssh-settings: true # If true, use property based SSH config instead of file based.
+          # private-key: |
+      label: master # 读取的分支
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka
+
+# 暴露bus刷新配置的端点
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "bus-refresh"
