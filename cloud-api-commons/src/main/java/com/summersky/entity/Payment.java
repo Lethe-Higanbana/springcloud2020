@@ -42,6 +42,11 @@ private static final long serialVersionUID=1L;
         this.serial = serial;
     }
 
+    public Payment(Long id, String serial) {
+        this.id = id;
+        this.serial = serial;
+    }
+
     @Override
     public String toString() {
         return "Payment{" +
